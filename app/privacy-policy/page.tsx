@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/data/site";
 import { LegalPage } from "@/components/sections/legal-page";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Privacy policy",
   description: `How ${siteConfig.name} collects, uses and protects your personal data.`,
-  alternates: { canonical: "/privacy-policy" },
-};
+  path: "/privacy-policy",
+});
 
 // TODO: have this policy reviewed by a legal professional before going live.
 export default function PrivacyPolicyPage() {

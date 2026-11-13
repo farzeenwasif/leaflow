@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { appShowcase } from "@/data/pages";
 import { siteConfig } from "@/data/site";
 import { Button } from "@/components/ui/button";
@@ -8,11 +9,12 @@ import { CtaBanner } from "@/components/sections/cta-banner";
 import { FeatureShowcase } from "@/components/sections/feature-showcase";
 import { AppPhonesVisual } from "@/components/widgets/page-visuals";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "The accounting app for freelancers & SMEs",
   description: `Real-time dashboards, automatic bank sync, receipt scanning, invoicing and a business card — the ${siteConfig.name} app does your bookkeeping for you.`,
-  alternates: { canonical: "/our-app" },
-};
+  path: "/our-app",
+  keywords: ["accounting app", "bookkeeping app", "bank sync", "receipt scanning", "invoicing app"],
+});
 
 export default function OurAppPage() {
   return (

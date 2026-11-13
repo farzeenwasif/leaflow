@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { comparisonPlans, comparisonRows, pricingFaq, services } from "@/data/pages";
 import { siteConfig } from "@/data/site";
 import { Highlight } from "@/components/ui/highlight";
@@ -9,11 +10,12 @@ import { Faq } from "@/components/sections/faq";
 import { IconCardGrid } from "@/components/sections/icon-card-grid";
 import { PlanCards } from "@/components/sections/plan-cards";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Pricing",
   description: `Simple, transparent pricing for online accounting. ${siteConfig.name} plans start at €45 excl. tax per month, with no commitment and no setup fees.`,
-  alternates: { canonical: "/pricing" },
-};
+  path: "/pricing",
+  keywords: ["accounting pricing", "online accountant price", "accounting plans"],
+});
 
 export default function PricingPage() {
   return (

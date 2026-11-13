@@ -15,6 +15,7 @@ import { siteConfig } from "@/data/site";
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "AccountingService",
+  "@id": `${siteConfig.url}/#organization`,
   name: siteConfig.name,
   description: siteConfig.description,
   url: siteConfig.url,
@@ -33,10 +34,22 @@ const jsonLd = {
   })),
 };
 
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteConfig.url}/#website`,
+  url: siteConfig.url,
+  name: siteConfig.name,
+  description: siteConfig.description,
+  inLanguage: "en",
+  publisher: { "@id": `${siteConfig.url}/#organization` },
+};
+
 export default function HomePage() {
   return (
     <>
       <JsonLd data={jsonLd} />
+      <JsonLd data={websiteJsonLd} />
       <Hero />
       <Steps />
       <Pricing />

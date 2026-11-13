@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { contactChannels, contactPerks } from "@/data/pages";
 import { siteConfig } from "@/data/site";
 import { Card } from "@/components/ui/card";
@@ -9,11 +10,11 @@ import { ContactForm } from "@/components/sections/contact-form";
 import { Faq } from "@/components/sections/faq";
 import { accountingFaq } from "@/data/pages";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact us",
   description: `Talk to a ${siteConfig.name} expert about your accounting or company creation project. Free quote, reply within 24 hours.`,
-  alternates: { canonical: "/contact" },
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

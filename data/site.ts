@@ -6,8 +6,8 @@ import type { NavLink, FooterColumn } from "@/types/content";
  */
 export const siteConfig = {
   name: "Leaflow",
-  // TODO: set NEXT_PUBLIC_SITE_URL to your real domain.
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.example.com",
+  // Production domain. Override with NEXT_PUBLIC_SITE_URL (e.g. after adding a custom domain).
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://leaflowweb.vercel.app").replace(/\/+$/, ""),
   title: "Leaflow — Online accounting for freelancers & small businesses",
   description:
     "Leaflow is a 100% online accounting firm for freelancers and small businesses: a dedicated certified accountant, a free accounting app, bank sync and commitment-free plans from €45/month.",
