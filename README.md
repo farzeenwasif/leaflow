@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Leaflow
 
-## Getting Started
+Marketing website for **Leaflow** — online accounting for freelancers and small businesses.
+Built with Next.js 16 (App Router), React 19, TypeScript and Tailwind CSS v4.
 
-First, run the development server:
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # then fill in your keys
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Command         | What it does                      |
+| --------------- | --------------------------------- |
+| `npm run dev`   | Start the dev server              |
+| `npm run build` | Production build                  |
+| `npm run start` | Serve the production build        |
+| `npm run lint`  | Lint the project                  |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+See [`.env.example`](.env.example).
 
-## Learn More
+| Variable               | Required | Purpose                                                        |
+| ---------------------- | -------- | -------------------------------------------------------------- |
+| `RESEND_API_KEY`       | yes      | Sends contact-form emails and stores newsletter subscribers    |
+| `CONTACT_TO_EMAIL`     | no       | Inbox for contact messages (defaults to the email in `data/site.ts`) |
+| `RESEND_FROM_EMAIL`    | no       | Sender address once a domain is verified in Resend             |
+| `RESEND_SEGMENT_ID`    | no       | Resend segment for newsletter subscribers                      |
+| `NEXT_PUBLIC_SITE_URL` | no       | Public URL used for SEO (canonical links, sitemap, share image) |
 
-To learn more about Next.js, take a look at the following resources:
+## Project structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+app/                 Routes (one folder per page), server actions, SEO files
+components/
+  layout/            Navbar, footer
+  sections/          Page sections (hero, pricing, FAQ, CTA…)
+  ui/                Reusable building blocks (buttons, headings, cards…)
+  widgets/           Illustrative product UI (dashboards, phones, charts)
+  seo/               Structured data
+data/                All copy, prices, links and contact details
+lib/                 Helpers (email, validation, hooks)
+types/               Shared TypeScript types
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Editing content
 
-## Deploy on Vercel
+- **Brand name, phone, email, navigation:** `data/site.ts`
+- **Homepage content, plans and images:** `data/home.ts`
+- **Inner pages (accounting, creation, app, pricing, contact):** `data/pages.ts`
+- **Logo:** `components/ui/logo.tsx` (favicon: `app/icon.svg`)
+- **Colours, fonts and animations:** `app/globals.css`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Pages
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`/` · `/accounting` · `/company-creation` · `/our-app` · `/pricing` · `/contact` · `/contact/sent` · `/legal-notice` · `/privacy-policy` · custom 404
