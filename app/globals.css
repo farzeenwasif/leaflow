@@ -1,7 +1,185 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ------------------------------------------------------------------ */
+/*  Design tokens                                                      */
+/* ------------------------------------------------------------------ */
+@theme {
+  --font-sans: var(--font-urbanist), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Brand */
+  --color-brand-50: #e8faf2;
+  --color-brand-100: #cff8e5;
+  --color-brand-200: #a5efcb;
+  --color-brand-500: #2ed47a;
+  --color-brand-600: #22bc69;
+  --color-brand-700: #178f4f;
+
+  /* Neutrals */
+  --color-ink: #1d1d1d;
+  --color-body: #5f6368;
+  --color-subtle: #9ca3af;
+  --color-line: #e5eee9;
+  /* Mint-tinted neutral for tiles and inputs — keeps "grey" areas on-theme */
+  --color-surface: #eef6f2;
+
+  /* Accents */
+  --color-lavender-50: #f4f1ff;
+  --color-lavender-200: #e5dbff;
+  --color-lavender-300: #c9b2ff;
+  --color-lavender-400: #b69aff;
+  --color-lavender-600: #8b5cf6;
+  --color-sky-100: #dceeff;
+  --color-sky-200: #c4e6ff;
+  --color-sky-400: #87cfff;
+  --color-sky-500: #0ea5e9;
+  --color-coral-200: #ffd3c2;
+  --color-coral-400: #ff8a65;
+  --color-coral-500: #f97316;
+  --color-sunny-100: #fff3b0;
+  --color-sunny-300: #ffe34f;
+  --color-sunny-400: #facc15;
+
+  /* Fluid type scale — grows smoothly from phones (≈360px) to large screens. */
+  --text-display: clamp(1.75rem, 1.4rem + 1.1vw, 2.625rem);
+  --text-display--line-height: 1.18;
+  --text-h2: clamp(1.375rem, 1.1rem + 0.9vw, 2rem);
+  --text-h2--line-height: 1.25;
+  --text-h3: clamp(1.25rem, 1.05rem + 0.55vw, 1.5rem);
+  --text-h3--line-height: 1.3;
+  --text-title: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  --text-title--line-height: 1.35;
+  --text-lead: clamp(0.9375rem, 0.9rem + 0.2vw, 1.0625rem);
+  --text-lead--line-height: 1.6;
+
+  /* Elevation */
+  --shadow-soft: 0 10px 35px -12px rgb(15 23 42 / 0.12);
+  --shadow-card: 0 4px 20px rgb(0 0 0 / 0.05);
+  --shadow-float: 0 18px 45px -12px rgb(15 23 42 / 0.22);
+  --shadow-brand: 0 8px 20px -8px rgb(46 212 122 / 0.65);
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 9s ease-in-out infinite;
+  --animate-fade-in: fade-in 0.5s var(--ease-out-expo) both;
+  --animate-fade-in-up: fade-in-up 0.9s var(--ease-out-expo) both;
+  --animate-grow-x: grow-x 1.1s var(--ease-out-expo) both;
+  --animate-wave: wave 2.4s ease-in-out infinite;
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-grow-y: grow-y 0.9s var(--ease-out-expo) both;
+  /* Duration of each step in the app tour autoplay */
+  --animate-progress: progress 6s linear forwards;
+
+  @keyframes float {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -10px, 0); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; transform: translate3d(0, 8px, 0); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translate3d(0, 28px, 0); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes grow-x {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  @keyframes grow-y {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+  @keyframes progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  @keyframes marquee {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(calc(-50% - 0.5rem), 0, 0); }
+  }
+  @keyframes wave {
+    0%, 60%, 100% { transform: rotate(0deg); }
+    10%, 30% { transform: rotate(14deg); }
+    20%, 40% { transform: rotate(-8deg); }
+  }
 }
 
+/* ------------------------------------------------------------------ */
+/*  Base                                                               */
+/* ------------------------------------------------------------------ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    @apply bg-brand-100 text-ink;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-500;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Scroll reveal (driven by <Reveal />)                               */
+/* ------------------------------------------------------------------ */
+.reveal {
+  opacity: 0;
+  transition:
+    opacity 0.8s var(--ease-out-expo),
+    transform 0.8s var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal[data-reveal="up"] { transform: translate3d(0, 28px, 0); }
+.reveal[data-reveal="down"] { transform: translate3d(0, -28px, 0); }
+.reveal[data-reveal="left"] { transform: translate3d(-40px, 0, 0); }
+.reveal[data-reveal="right"] { transform: translate3d(40px, 0, 0); }
+.reveal[data-reveal="scale"] { transform: scale(0.94); }
+.reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hand-drawn highlight stroke (driven by <Highlight />) */
+.highlight-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.65, 0, 0.35, 1) 0.3s;
+}
+.highlight-path[data-drawn="true"] {
+  stroke-dashoffset: 0;
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Accessibility: honour reduced-motion preferences                   */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal,
+  .reveal[data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .highlight-path {
+    stroke-dashoffset: 0 !important;
+    transition: none !important;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
