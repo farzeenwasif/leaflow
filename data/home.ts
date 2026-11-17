@@ -10,7 +10,7 @@ import type { AppFeature, Bank, ImageAsset, Plan, Step, Testimonial, VisionPoint
 const BRAND = siteConfig.name;
 
 export const images = {
-  advisory: { src: "/Advisory.png", alt: "Client checking her accounts on her phone while holding a coffee" },
+  advisory: { src: "/advisory.webp", alt: "Client checking her accounts on her phone while holding a coffee" },
   freelancer: { src: "/images/left-photo.jpg", alt: "Freelancer working on her laptop at a desk" },
   team: { src: "/images/team.jpg", alt: `${BRAND} accountants reviewing figures together around a laptop` },
   // TODO: replace with the dedicated portrait from the design once exported.
