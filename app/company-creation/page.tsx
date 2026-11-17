@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { audiences, creationFaq, creationSteps } from "@/data/pages";
 import { siteConfig } from "@/data/site";
 import { Button } from "@/components/ui/button";
@@ -10,11 +11,12 @@ import { IconCardGrid } from "@/components/sections/icon-card-grid";
 import { Timeline } from "@/components/sections/timeline";
 import { CreationTracker, CreationVisual } from "@/components/widgets/page-visuals";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Create your company for free",
   description: `${siteConfig.name} creates your company for free: legal advice, statutes, capital deposit and registry filing handled by experts in 5 to 10 days.`,
-  alternates: { canonical: "/company-creation" },
-};
+  path: "/company-creation",
+  keywords: ["company creation", "start a business", "register a company", "company statutes", "free company formation"],
+});
 
 export default function CompanyCreationPage() {
   return (

@@ -1,21 +1,29 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/data/site";
 
-const routes: { path: string; priority: number }[] = [
-  { path: "", priority: 1 },
-  { path: "/accounting", priority: 0.9 },
-  { path: "/company-creation", priority: 0.9 },
-  { path: "/our-app", priority: 0.8 },
-  { path: "/pricing", priority: 0.9 },
-  { path: "/contact", priority: 0.7 },
-  { path: "/legal-notice", priority: 0.2 },
-  { path: "/privacy-policy", priority: 0.2 },
+type Route = {
+  path: string;
+  priority: number;
+  changeFrequency: NonNullable<MetadataRoute.Sitemap[number]["changeFrequency"]>;
+};
+
+const routes: Route[] = [
+  { path: "", priority: 1, changeFrequency: "weekly" },
+  { path: "/accounting", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/company-creation", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/pricing", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/our-app", priority: 0.8, changeFrequency: "monthly" },
+  { path: "/contact", priority: 0.7, changeFrequency: "yearly" },
+  { path: "/legal-notice", priority: 0.2, changeFrequency: "yearly" },
+  { path: "/privacy-policy", priority: 0.2, changeFrequency: "yearly" },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return routes.map(({ path, priority }) => ({
-    url: `${siteConfig.url}${path}`,
-    changeFrequency: "monthly",
+  const lastModified = new Date();
+  return routes.map(({ path, priority, changeFrequency }) => ({
+    url: `${siteConfig.url}${path || "/"}`,
+    lastModified,
+    changeFrequency,
     priority,
   }));
 }

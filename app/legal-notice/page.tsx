@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/data/site";
 import { LegalPage } from "@/components/sections/legal-page";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Legal notice",
   description: `Legal information about ${siteConfig.name}: publisher, hosting and intellectual property.`,
-  alternates: { canonical: "/legal-notice" },
-};
+  path: "/legal-notice",
+});
 
 // TODO: replace every [bracketed] placeholder with your real company details before going live.
 export default function LegalNoticePage() {

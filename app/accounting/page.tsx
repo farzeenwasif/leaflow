@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { accountingFaq, accountingIncluded, accountingReasons, accountingStats } from "@/data/pages";
 import { siteConfig } from "@/data/site";
 import { Button } from "@/components/ui/button";
@@ -14,11 +15,12 @@ import { IconCardGrid } from "@/components/sections/icon-card-grid";
 import { Testimonials } from "@/components/sections/testimonials";
 import { AccountingVisual } from "@/components/widgets/page-visuals";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Online accounting for freelancers & SMEs",
   description: `Bookkeeping, annual accounts, tax and VAT returns handled by a dedicated certified accountant, with ${siteConfig.name}'s app included. Fixed monthly price, no commitment.`,
-  alternates: { canonical: "/accounting" },
-};
+  path: "/accounting",
+  keywords: ["online accountant", "accounting for freelancers", "bookkeeping", "tax returns", "VAT returns", "annual accounts"],
+});
 
 export default function AccountingPage() {
   return (
